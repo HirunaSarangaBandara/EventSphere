@@ -1,5 +1,11 @@
+# EventSphere Render Blueprint
+# Both services use Singapore to keep the web app and PostgreSQL close together.
+# Free plans are suitable for a short academic demonstration, but have limitations.
+
 databases:
   - name: eventsphere-db
+    region: singapore
+    plan: free
     databaseName: eventsphere
     user: eventsphere
 
@@ -7,6 +13,8 @@ services:
   - type: web
     name: eventsphere
     runtime: python
+    region: singapore
+    plan: free
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
@@ -19,8 +27,6 @@ services:
         generateValue: true
       - key: CSRF_COOKIE_SECURE
         value: "true"
-      - key: CORS_ORIGINS
-        value: https://eventsphere.onrender.com
       - key: WAITLIST_HOLD_MINUTES
         value: "10"
       - key: WAITLIST_SWEEP_SECONDS
