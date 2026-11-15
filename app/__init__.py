@@ -1,0 +1,1 @@
+"""EventSphere application package."""

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#172b4d">
+  <meta name="description" content="EventSphere — university events, digital tickets and venue hire.">
+  <title>EventSphere | Campus events made easy</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <a class="brand" href="/" aria-label="EventSphere home"><span class="brand-mark">E</span><span>event<span class="brand-light">sphere</span></span></a>
+    <nav id="mainNav" class="nav-links" aria-label="Main navigation">
+      <a href="#events" class="nav-link active" data-view="events">Explore events</a>
+      <a href="#tickets" class="nav-link attendee-only hidden" data-view="tickets">My tickets</a>
+      <a href="#hire" class="nav-link attendee-only hidden" data-view="hire">Venue hire</a>
+      <a href="#waitlist" class="nav-link attendee-only hidden" data-view="waitlist">Waitlist</a>
+      <a href="#notifications" class="nav-link signed-in-only hidden" data-view="notifications">Notifications <span id="notificationDot" class="dot hidden"></span></a>
+      <a href="#scanner" class="nav-link staff-only hidden" data-view="scanner">Gate scanner</a>
+      <a href="#admin" class="nav-link admin-only hidden" data-view="admin">Admin</a>
+    </nav>
+    <div class="top-actions">
+      <span id="userChip" class="user-chip hidden"></span>
+      <button id="loginBtn" class="btn btn-quiet">Sign in</button>
+      <button id="registerBtn" class="btn btn-primary">Create account</button>
+      <button id="logoutBtn" class="btn btn-quiet hidden">Sign out</button>
+      <button id="mobileMenuBtn" class="mobile-menu" aria-label="Toggle navigation">☰</button>
+    </div>
+  </div>
+
+  <main>
+    <section id="eventsView" class="view active-view">
+      <section class="hero">
+        <div class="hero-content">
+          <div class="eyebrow"><span class="eyebrow-line"></span> YOUR CAMPUS. YOUR MOMENT.</div>
+          <h1>Make room for<br><em>something great.</em></h1>
+          <p class="hero-copy">Discover what's happening around campus. Book your place, keep your ticket on your phone, and enjoy the moment.</p>
+          <div class="hero-actions"><a class="btn btn-light" href="#eventGrid">Explore events <span>↘</span></a><button class="text-button" id="heroHireBtn">Need a venue? <span>→</span></button></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-circle circle-one"></div><div class="art-circle circle-two"></div>
+          <div class="ticket-art"><div class="ticket-top"><span>EVENTSPHERE</span><span class="ticket-dot">●</span></div><div class="ticket-title">YOUR<br>NEXT<br>STORY<span>.</span></div><div class="ticket-bottom"><span>ADMIT ONE</span><span>ES / 2026</span></div><div class="ticket-perf"></div></div>
+          <div class="floating-note note-one">✳ &nbsp; Discover</div><div class="floating-note note-two">Good things happen here ↗</div>
+        </div>
+        <div class="hero-footer"><span>01 — FIND YOUR EVENT</span><span>02 — BOOK YOUR TICKET</span><span>03 — SHOW UP & ENJOY</span></div>
+      </section>
+      <section class="section-wrap" id="eventGrid">
+        <div class="section-heading"><div><div class="eyebrow dark-eyebrow">THE CAMPUS CALENDAR</div><h2>Find your <em>next thing.</em></h2></div><p>From big nights to bright ideas,<br>there's a place for you.</p></div>
+        <div class="filters"><label class="search-box"><span>⌕</span><input id="eventSearch" type="search" placeholder="Search events, topics or keywords..."></label><select id="categoryFilter" aria-label="Filter by category"><option value="">All categories</option><option>Concert</option><option>Workshop</option><option>Seminar</option><option>Conference</option><option>Sports</option><option>Other</option></select><button class="btn btn-outline" id="clearFilters">Clear filters</button></div>
+        <div id="eventGridItems" class="event-grid"><div class="loading-state">Loading campus events…</div></div>
+      </section>
+      <section class="hire-banner"><div><div class="eyebrow">MAKE IT YOUR SPACE</div><h2>A place for<br><em>your occasion.</em></h2><p>Planning a farewell, reception or club meetup? Find a campus venue that fits.</p></div><button id="bannerHireBtn" class="btn btn-light">Explore venue hire <span>↗</span></button></section>
+    </section>
+
+    <section id="ticketsView" class="view section-wrap inner-view"><div class="page-heading"><div class="eyebrow dark-eyebrow">YOUR POCKET PASS</div><h2>My <em>tickets.</em></h2><p>All your bookings and digital entry passes in one place.</p></div><div id="myBookings" class="stack-list"></div></section>
+
+    <section id="hireView" class="view section-wrap inner-view"><div class="page-heading"><div class="eyebrow dark-eyebrow">MAKE IT HAPPEN</div><h2>Find your <em>space.</em></h2><p>Request a whole venue for a private occasion. The VenueAgent checks availability and gives you an immediate decision.</p></div><div class="two-col"><form id="hireForm" class="panel form-panel"><h3>Request a venue</h3><div class="field"><label for="hireVenue">Venue</label><select id="hireVenue" required></select></div><div class="form-row"><div class="field"><label for="hireStart">Starts</label><input id="hireStart" type="datetime-local" required></div><div class="field"><label for="hireEnd">Ends</label><input id="hireEnd" type="datetime-local" required></div></div><div class="form-row"><div class="field"><label for="hireGuests">Guest count</label><input id="hireGuests" type="number" min="1" required placeholder="e.g. 80"></div><div class="field"><label for="hirePurpose">Purpose</label><input id="hirePurpose" maxlength="255" required placeholder="Farewell, reception…"></div></div><button class="btn btn-primary" type="submit">Send hire request <span>→</span></button><p class="form-hint">No payment is taken here. A quote is simulated and shown after the agent checks the request.</p></form><div><div class="subsection-heading"><h3>Available venues</h3><span class="muted">Campus spaces</span></div><div id="venueCards" class="venue-list"></div></div></div><div class="subsection-heading spaced"><h3>Your requests</h3></div><div id="myHireRequests" class="stack-list"></div></section>
+
+    <section id="waitlistView" class="view section-wrap inner-view"><div class="page-heading"><div class="eyebrow dark-eyebrow">YOUR PLACE IN LINE</div><h2>My <em>waitlist.</em></h2><p>When seats become available, the WaitlistAgent holds them for you for a limited time.</p></div><div id="myWaitlist" class="stack-list"></div></section>
+
+    <section id="notificationsView" class="view section-wrap inner-view"><div class="page-heading"><div class="eyebrow dark-eyebrow">WHAT'S NEW</div><h2>Your <em>updates.</em></h2><p>Messages from the EventSphere agents and event organisers.</p></div><div id="notificationsList" class="stack-list"></div></section>
+
+    <section id="scannerView" class="view section-wrap inner-view"><div class="page-heading"><div class="eyebrow dark-eyebrow">GATE STAFF TOOLS</div><h2>Ticket <em>check-in.</em></h2><p>Scan a ticket QR code or enter its code manually. Every ticket can be admitted once only.</p></div><div class="scanner-layout"><div class="panel scanner-panel"><div class="field"><label for="scanEvent">Event</label><select id="scanEvent" required></select></div><div class="camera-frame" id="cameraFrame"><div id="reader" class="qr-reader"></div><video id="scanVideo" playsinline muted></video><div id="cameraPlaceholder" class="camera-placeholder"><span>▦</span><strong>Camera scanner</strong><small>Use the camera or enter the ticket code below.</small></div><div class="scan-reticle"></div></div><div class="button-row"><button id="startCamera" class="btn btn-primary">Start camera</button><button id="stopCamera" class="btn btn-outline" disabled>Stop camera</button></div><div class="field"><label for="ticketCode">Manual ticket code</label><input id="ticketCode" autocomplete="off" placeholder="Paste or type ticket code"></div><button id="manualCheckin" class="btn btn-primary full-width">Validate and admit ticket</button><div id="scanResult" class="scan-result hidden" aria-live="polite"></div><p class="form-hint">Camera scanning requires HTTPS or localhost and a browser with QR BarcodeDetector support. Manual entry is always available.</p></div><div class="panel scanner-help"><div class="eyebrow dark-eyebrow">GATE CHECKLIST</div><h3>One scan.<br><em>One entry.</em></h3><ol><li>Select the correct event before scanning.</li><li>Scan the attendee's QR code or enter the ticket code.</li><li>Check the response before allowing entry.</li></ol><div class="status-legend"><span><i class="legend-dot good"></i> Admitted</span><span><i class="legend-dot bad"></i> Rejected</span></div></div></div></section>
+
+    <section id="adminView" class="view section-wrap inner-view"><div class="page-heading"><div class="eyebrow dark-eyebrow">CONTROL ROOM</div><h2>EventSphere <em>admin.</em></h2><p>Manage venues, publish events, review private-hire requests and follow every agent conversation.</p></div><div class="admin-tabs"><button class="admin-tab active" data-admin-tab="overview">Overview</button><button class="admin-tab" data-admin-tab="events">Events</button><button class="admin-tab" data-admin-tab="venues">Venues</button><button class="admin-tab" data-admin-tab="hires">Hire requests</button><button class="admin-tab" data-admin-tab="agents">Agent activity</button></div>
+      <div id="adminOverview" class="admin-pane active"><div id="adminStats" class="stats-grid"></div><div class="subsection-heading spaced"><h3>Event performance</h3></div><div id="adminEventStats" class="table-wrap"></div></div>
+      <div id="adminEvents" class="admin-pane"><div class="admin-split"><form id="eventForm" class="panel form-panel"><div class="form-heading"><h3 id="eventFormTitle">Create an event</h3><button type="button" id="resetEventForm" class="text-button">Reset form</button></div><input type="hidden" id="eventEditId"><div class="field"><label for="eventTitle">Event title</label><input id="eventTitle" required maxlength="200" placeholder="e.g. Innovation Week 2026"></div><div class="form-row"><div class="field"><label for="eventCategory">Category</label><select id="eventCategory"><option>Concert</option><option>Workshop</option><option>Seminar</option><option>Conference</option><option>Sports</option><option>Other</option></select></div><div class="field"><label for="eventVenue">Venue</label><select id="eventVenue" required></select></div></div><div class="form-row"><div class="field"><label for="eventStart">Starts</label><input id="eventStart" type="datetime-local" required></div><div class="field"><label for="eventEnd">Ends</label><input id="eventEnd" type="datetime-local" required></div></div><div class="field"><label for="eventDescription">Description</label><textarea id="eventDescription" rows="3" placeholder="Tell people what to expect…"></textarea></div><div class="ticket-category-editor"><div class="subsection-heading"><h4>Ticket category</h4><span class="muted">At least one required</span></div><div class="form-row"><div class="field"><label for="ticketTypeName">Name</label><input id="ticketTypeName" value="Standard" required></div><div class="field"><label for="ticketTypePrice">Price (LKR)</label><input id="ticketTypePrice" type="number" min="0" step="0.01" value="500" required></div><div class="field"><label for="ticketTypeQty">Quantity</label><input id="ticketTypeQty" type="number" min="1" value="100" required></div></div><p id="editCategoryNote" class="form-hint hidden">When editing an event, existing ticket categories and inventory are retained.</p></div><div class="field"><label for="eventStatus">Save as</label><select id="eventStatus"><option value="draft">Draft</option><option value="published">Publish event</option></select></div><button class="btn btn-primary" type="submit">Save event <span>→</span></button></form><div><div class="subsection-heading"><h3>Manage events</h3><span class="muted">Drafts and published</span></div><div id="adminEventList" class="admin-list"></div></div></div></div>
+      <div id="adminVenues" class="admin-pane"><div class="admin-split"><form id="venueForm" class="panel form-panel"><div class="form-heading"><h3 id="venueFormTitle">Add a venue</h3><button type="button" id="resetVenueForm" class="text-button">Reset form</button></div><input type="hidden" id="venueEditId"><div class="field"><label for="venueName">Venue name</label><input id="venueName" required maxlength="160"></div><div class="field"><label for="venueLocation">Location</label><input id="venueLocation" required></div><div class="form-row"><div class="field"><label for="venueCapacity">Capacity</label><input id="venueCapacity" type="number" min="1" required></div><div class="field"><label for="venueRate">Hourly hire rate (LKR)</label><input id="venueRate" type="number" min="0" step="0.01" required></div></div><div class="field"><label for="venueImage">Image URL (optional)</label><input id="venueImage" type="url" placeholder="https://…"></div><div class="field"><label for="venueDescription">Description</label><textarea id="venueDescription" rows="3"></textarea></div><label class="check-line"><input id="venueOpenHire" type="checkbox" checked> Open for private hire</label><button class="btn btn-primary" type="submit">Save venue <span>→</span></button></form><div><div class="subsection-heading"><h3>Campus venues</h3></div><div id="adminVenueList" class="admin-list"></div></div></div></div>
+      <div id="adminHires" class="admin-pane"><div class="subsection-heading"><h3>Escalated hire requests</h3><span class="muted">Requires an organiser decision</span></div><div id="adminHireList" class="stack-list"></div></div>
+      <div id="adminAgents" class="admin-pane"><div class="subsection-heading"><h3>Persistent agent beliefs</h3><span class="muted">State survives application restarts</span></div><div id="agentStates" class="agent-state-grid"></div><div class="subsection-heading spaced"><h3>Message trace</h3><span class="muted">Latest JSON messages, newest first</span></div><div id="agentMessages" class="message-list"></div></div>
+    </section>
+  </main>
+
+  <footer class="footer"><a class="brand footer-brand" href="/"><span class="brand-mark">E</span><span>event<span class="brand-light">sphere</span></span></a><p>Campus events, venue hire and digital entry — in one place.</p><span>© 2026 EventSphere · IT4123 Agent Based Computing</span></footer>
+
+  <div id="authModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="authTitle"><div class="modal-backdrop" data-close-modal></div><div class="modal-card"><button class="modal-close" data-close-modal aria-label="Close">×</button><div class="eyebrow dark-eyebrow">WELCOME TO EVENTSPHERE</div><h2 id="authTitle">Good to see <em>you.</em></h2><div class="auth-switch"><button class="auth-mode active" data-auth-mode="login">Sign in</button><button class="auth-mode" data-auth-mode="register">Create account</button></div><form id="authForm"><div id="nameField" class="field hidden"><label for="authName">Full name</label><input id="authName" autocomplete="name"></div><div class="field"><label for="authEmail">Email address</label><input id="authEmail" type="email" autocomplete="email" required></div><div class="field"><label for="authPassword">Password</label><input id="authPassword" type="password" minlength="8" autocomplete="current-password" required></div><button id="authSubmit" class="btn btn-primary full-width" type="submit">Sign in <span>→</span></button></form><p class="form-hint">New accounts are registered as attendees. Admin and staff accounts are provisioned by the organiser.</p></div></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js" defer></script>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
